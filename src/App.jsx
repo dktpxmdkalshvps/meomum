@@ -1001,13 +1001,13 @@ export default function LongStayRegionRecommenderPrototype() {
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold">
-                장기 체류관광 맞춤형 지역 추천 및 랭킹 서비스 · Prototype v1
+                Meomum : 장기 체류관광 맞춤형 지역 추천 및 랭킹 서비스 · Prototype v1
               </div>
               <h1 className="text-2xl font-bold md:text-4xl">
-                첨부 데이터를 반영한 장기 체류관광 추천 프론트
+                지역생활 데이터를 반영한 장기 체류관광 추천
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200 md:text-base">
-                교통, 문화, 생활편의, 안전, 자연 5대 지표를 사용자가 직접 가중치로 조정하고,
+                교통, 문화, 생활편의, 안전, 자연 5대 지표를 직접 가중치로 조정하고,
                 시도 단위 정규화 점수와 결합해 Top 10 지역을 도출하는 프로토타입입니다.
                 지도 영역은 실제 지도 API 연동 전 단계의 인터랙션 시안으로 구성했습니다.
               </p>
@@ -1547,8 +1547,7 @@ export default function LongStayRegionRecommenderPrototype() {
                   <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
                     <li>• 요구사항의 5대 슬라이더, 세대별 프리셋, Top 10 랭킹, 방사형 차트, 지도형 히트맵 UI, 상세정보 패널, 공유 기능을 모두 한 화면 흐름으로 배치했습니다.</li>
                     <li>• 점수는 첨부 데이터의 시도 단위 집계값을 사용한 프로토타입용 정규화 결과이며, 실제 서비스에서는 백엔드 API와 DB 정규화 파이프라인으로 대체하면 됩니다.</li>
-                    <li>• 지도는 SVG 기반 시안이므로 Kakao Maps 또는 Naver Maps SDK로 교체해도 상태/컴포넌트 구조는 그대로 재사용할 수 있습니다.</li>
-                  </ul>
+                    </ul>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
                   <div className="font-semibold text-white">확장 포인트</div>
