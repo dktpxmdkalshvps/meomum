@@ -1675,9 +1675,9 @@ export default function LongStayRegionRecommenderPrototype() {
                 <div className="max-w-3xl">
                   <h2 className="text-lg font-bold text-white">구현 메모</h2>
                   <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
-                    <li>• 요구사항의 5대 슬라이더, 세대별 프리셋, Top 10 랭킹, 방사형 차트, 지도형 히트맵 UI, 상세정보 패널, 공유 기능을 모두 한 화면 흐름으로 배치했습니다.</li>
-                    <li>• 점수는 첨부 데이터의 시도 단위 집계값을 사용한 프로토타입용 정규화 결과이며, 실제 서비스에서는 백엔드 API와 DB 정규화 파이프라인으로 대체하면 됩니다.</li>
-                    <li>• 지도는 SVG 기반 시안이므로 Kakao Maps 또는 Naver Maps SDK로 교체해도 상태/컴포넌트 구조는 그대로 재사용할 수 있습니다.</li>
+                    <li>• 요구사항의 5대 슬라이더, 세대별 프리셋, Top 10 랭킹, 방사형 차트, 지도형 히트맵 UI, 상세정보 패널, 공유 기능을 모두 한 화면 흐름으로 배치.</li>
+                    <li>• 점수는 첨부 데이터의 시도 단위 집계값을 사용한 프로토타입용 정규화 결과이며, 실제 서비스에서는 백엔드 API와 DB 정규화 파이프라인으로 대체 예정.</li>
+                    <li>• 지도는 SVG 기반 시안이므로 Kakao Maps 또는 Naver Maps SDK로 교체 예정.</li>
                   </ul>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
