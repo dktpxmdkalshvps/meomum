@@ -864,6 +864,14 @@ function getChoroplethColor(value) {
 
 function KoreaMunicipalityMap({ ranking, mapMetric, selectedRegionId, onSelectRegion }) {
   const [hoveredDistrict, setHoveredDistrict] = useState(null);
+  const [zoomScale, setZoomScale] = useState(1);
+
+  const clampZoom = (value) => Math.max(1, Math.min(2.4, Number(value.toFixed(2))));
+  const handleZoom = (delta) => {
+    setZoomScale((prev) => clampZoom(prev + delta));
+  };
+  const resetZoom = () => setZoomScale(1);
+
 
   const rankingMap = useMemo(
     () => new Map(ranking.map((item) => [item.id, item])),
@@ -914,15 +922,45 @@ function KoreaMunicipalityMap({ ranking, mapMetric, selectedRegionId, onSelectRe
 
   return (
     <div className="space-y-4">
-      <div className="overflow-hidden rounded-[24px] border border-[#dccfbe] bg-[#f5f2ec] shadow-inner">
+      <div className="overflow-hidden rounded-[24px] border border-[#dccfbe] bg-[#fff] shadow-inner">
         <div className="flex items-center justify-between border-b border-[#e6dac8] px-4 py-3 text-xs text-[#8b5e3c]">
-          <span className="font-semibold tracking-[0.18em] uppercase">GeoJSON Choropleth</span>
-          <span>{METRIC_META[mapMetric].label} · 시군구 경계</span>
+          <span className="font-semibold"> 클릭으로 지도 확대/축소</span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleZoom(-0.2)}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#dccfbe] bg-white text-sm font-bold text-[#6f4a2f] transition hover:bg-[#f8f4ef]"
+              aria-label="지도 축소"
+            >
+              −
+            </button>
+            <div className="min-w-[56px] text-center font-semibold text-[#6f4a2f]">
+              {Math.round(zoomScale * 100)}%
+            </div>
+            <button
+              type="button"
+              onClick={() => handleZoom(0.2)}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#dccfbe] bg-white text-sm font-bold text-[#6f4a2f] transition hover:bg-[#f8f4ef]"
+              aria-label="지도 확대"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              onClick={resetZoom}
+              className="rounded-full border border-[#dccfbe] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#6f4a2f] transition hover:bg-[#f8f4ef]"
+            >
+              초기화
+            </button>
+          </div>
         </div>
 
-        <svg viewBox="0 0 640 760" className="w-full bg-[#f7f3ed]">
-          <rect x="0" y="0" width="640" height="760" fill="#f7f3ed" />
-
+        <svg
+          viewBox="0 0 640 760"
+          className="w-full bg-[#fff]"
+        >
+          <rect x="0" y="0" width="640" height="760" fill="#fff" />
+          <g transform={`translate(320 380) scale(${zoomScale}) translate(-320 -380)`}>
           {municipalityGeo.features.map((feature, index) => {
             const region = rankingMap.get(feature.properties.regionId);
             if (!region) return null;
@@ -992,6 +1030,7 @@ function KoreaMunicipalityMap({ ranking, mapMetric, selectedRegionId, onSelectRe
               </text>
             </g>
           ))}
+          </g>
         </svg>
       </div>
 
@@ -1089,13 +1128,17 @@ function RangeSlider({ label, value, onChange, color }) {
 
 function StatCard({ icon: Icon, label, value, helper }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-sm">
-      <div className="mb-2 flex items-center gap-2 text-slate-500">
-        <Icon className="h-4 w-4" />
-        <span className="text-xs font-semibold uppercase tracking-wide">{label}</span>
+    <div className="flex aspect-square min-h-[148px] flex-col justify-between rounded-[24px] border border-white/10 bg-white/95 p-5 shadow-sm backdrop-blur-sm">
+      <div>
+        <div className="mb-3 flex items-center gap-2 text-slate-500">
+          <Icon className="h-4 w-4 shrink-0" />
+          <span className="text-xs font-semibold tracking-wide leading-4">{label}</span>
+        </div>
+        <div className="text-[clamp(1.6rem,1.92vw,1.8rem)] font-bold leading-none text-slate-900">
+          {value}
+        </div>
       </div>
-      <div className="text-2xl font-bold text-slate-900">{value}</div>
-      <div className="mt-1 text-xs text-slate-500">{helper}</div>
+      <div className="mt-3 text-sm leading-5 text-slate-500">{helper}</div>
     </div>
   );
 }
@@ -1195,10 +1238,10 @@ export default function LongStayRegionRecommenderPrototype() {
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold">
-                장기 체류관광 맞춤형 지역 추천 및 랭킹 서비스 · Prototype v1
+                머묾:장기 체류관광 맞춤형 지역 추천 및 랭킹 서비스 · Prototype v2
               </div>
               <h1 className="text-2xl font-bold md:text-4xl">
-                첨부 데이터를 반영한 장기 체류관광 추천 프론트
+                생활편의 데이터를 반영한 장기 체류관광 추천
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-200 md:text-base">
                 교통, 문화, 생활편의, 안전, 자연 5대 지표를 사용자가 직접 가중치로 조정하고,
@@ -1217,7 +1260,7 @@ export default function LongStayRegionRecommenderPrototype() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:w-[430px]">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:w-[560px] lg:-translate-x-[20%] lg:origin-top-right lg:scale-[0.8] xl:w-[600px]">
               <StatCard
                 icon={Trophy}
                 label="현재 1위"
@@ -1434,7 +1477,7 @@ export default function LongStayRegionRecommenderPrototype() {
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <MapPinned className="h-5 w-5 text-sky-600" />
-                    <h2 className="text-lg font-bold">대한민국 시군구 GeoJSON 지도</h2>
+                    <h2 className="text-lg font-bold">대한민국 시군구 지도</h2>
                   </div>
                   <div className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
                     실제 경계 데이터 반영
