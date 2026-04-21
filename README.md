@@ -16,6 +16,8 @@ npm run dev
 
 ## 포함 파일
 - `src/App.jsx`: 메인 프로토타입 화면
+- `src/assets/korea-municipalities-simplified.json`: 시군구 경계 GeoJSON
+- `src/assets/korea-provinces-simplified.json`: 시도 경계 GeoJSON
 - `src/main.jsx`: React 엔트리 파일
 - `src/index.css`: Tailwind 및 기본 전역 스타일
 - `package.json`: 실행/빌드 스크립트 및 의존성
@@ -24,5 +26,6 @@ npm run dev
 - `stackblitz.json`: StackBlitz 실행 설정
 
 ## 메모
-- 지도 영역은 실제 Kakao/Naver Map SDK 연동 전의 SVG 기반 프로토타입입니다.
-- 점수 계산은 첨부 공공데이터를 집계한 시도 단위 정규화 결과를 반영합니다.
+- 지도 영역은 실제 대한민국 시군구 경계 GeoJSON을 사용한 choropleth 지도입니다.
+- 현재 색상 점수는 첨부 공공데이터의 해상도에 맞춰 시도 단위 정규화 결과를 시군구 경계 위에 반영합니다.
+- 이후 시군구 단위 원천 데이터를 추가하면 같은 컴포넌트 구조에서 상세 랭킹으로 확장할 수 있습니다.
